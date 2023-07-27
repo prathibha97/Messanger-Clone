@@ -1,13 +1,14 @@
-'use client'
-import { signOut } from 'next-auth/react'
-import { FC } from 'react'
+import { FC } from 'react';
+import EmptyState from '../components/EmptyState';
 
-interface pageProps {
-  
-}
+interface PageProps {}
 
-const page: FC<pageProps> = ({}) => {
-  return <button onClick={()=>signOut()}>logout</button>
-}
+const Page: FC<PageProps> = ({}) => {
+  return (
+    <div className='hidden lg:block lg:pl-80 h-full'>
+      <EmptyState />
+    </div>
+  );
+};
 
-export default page
+export default Page;
