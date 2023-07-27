@@ -1,0 +1,24 @@
+'use client';
+
+import clsx from 'clsx';
+import EmptyState from '../components/EmptyState';
+import useConversation from '../hooks/use-conversation';
+
+const Home = () => {
+  const { isOpen } = useConversation();
+  return (
+    <div
+      className={clsx(
+        `
+  lg:pl-80 h-full lg:block
+  `,
+  // @ts-ignore
+        isOpen ? 'block' : 'hidden'
+      )}
+    >
+      <EmptyState />
+    </div>
+  );
+};
+
+export default Home;
