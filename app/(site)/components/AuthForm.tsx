@@ -1,6 +1,9 @@
 'use client';
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
+import { toast } from '@/app/hooks/use-toast';
+import axios from 'axios';
+import { signIn } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
@@ -32,20 +35,66 @@ const AuthForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
 
     if (variant === 'REGISTER') {
-      // axios register
+      await axios
+        .post(`/api/register`, data)
+        .catch(() => {
+          return toast({
+            title: 'Something went wrong!',
+            description: 'Could not register, please try again',
+            variant: 'destructive',
+          });
+        })
+        .finally(() => setIsLoading(false));
     }
     if (variant === 'LOGIN') {
-      // NextAuth signIn
+      signIn('credentials', {
+        ...data,
+        redirect: false,
+      })
+        .then((callback) => {
+          if (callback?.error) {
+            return toast({
+              title: 'Something went wrong!',
+              description: 'Could not sign in, please try again',
+              variant: 'destructive',
+            });
+          }
+
+          if (callback?.ok && !callback?.error) {
+            return toast({
+              title: 'Logged in successfully',
+            });
+          }
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
   const socialAction = (action: string) => {
     setIsLoading(true);
-    // NextAuth social signin
+    
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          return toast({
+            title: 'Something went wrong!',
+            description: 'Could not sign in, please try again',
+            variant: 'destructive',
+          });
+        }
+
+        if (callback?.ok && !callback?.error) {
+          return toast({
+            title: 'Logged in successfully',
+          });
+        }
+      })
+      .finally(() => setIsLoading(false));
+
   };
 
   return (
