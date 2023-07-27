@@ -13,7 +13,7 @@ export default function Home() {
           src='/images/logo.png'
         />
         <h2 className='mt-6 text-center text-3xl font-bold tracking-tight text-gray-900'>
-          Sign in yo your account
+          Sign in to your account
         </h2>
       </div>
       <AuthForm />
