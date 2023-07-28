@@ -12,7 +12,6 @@ const Home = () => {
         `
   lg:pl-80 h-full lg:block
   `,
-  // @ts-ignore
         isOpen ? 'block' : 'hidden'
       )}
     >

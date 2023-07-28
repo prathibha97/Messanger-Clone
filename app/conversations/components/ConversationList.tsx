@@ -33,7 +33,6 @@ const ConversationList: FC<ConversationListProps> = ({ initialItems }) => {
     border-r
     border-gray-200
     `,
-        // @ts-ignore
         isOpen ? 'hidden' : 'block w-full left-0'
       )}
     >

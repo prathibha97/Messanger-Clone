@@ -10,7 +10,6 @@ const MobileFooter: FC<MobileFooterProps> = ({}) => {
   const routes = useRoutes();
   const { isOpen } = useConversation();
 
-  // @ts-ignore
   if (isOpen) return null;
 
   return (
