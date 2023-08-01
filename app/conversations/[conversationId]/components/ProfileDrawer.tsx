@@ -9,6 +9,7 @@ import { IoClose, IoTrash } from 'react-icons/io5';
 import useOtherUser from '@/app/hooks/useOtherUser';
 
 import Avatar from '@/app/components/Avatar';
+import AvatarGroup from '@/app/components/AvatarGroup';
 import ConfirmModal from './ConfirmModal';
 
 interface ProfileDrawerProps {
@@ -96,7 +97,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                       <div className='relative mt-6 flex-1 px-4 sm:px-6'>
                         <div className='flex flex-col items-center'>
                           <div className='mb-2'>
-                            {!data.isGroup && <Avatar user={otherUser} />}
+                            {!data.isGroup ? (
+                              <AvatarGroup users={data.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
+                            )}
                           </div>
                           <div>{title}</div>
                           <div className='text-sm text-gray-500'>
